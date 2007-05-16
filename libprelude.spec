@@ -3,7 +3,7 @@
 
 Summary:        Prelude Hybrid Intrusion Detection System Library
 Name:           libprelude
-Version:        0.9.13.2
+Version:        0.9.14
 Release:        %mkrel 1
 License:        GPL
 Group:          System/Libraries
@@ -129,7 +129,7 @@ Provides perl bindings for prelude.
 %{makeinstall_std}
 %{makeinstall_std} -C bindings/perl
 
-%{_bindir}/chrpath -d %{buildroot}%{_libdir}/libprelude.so.?.?.?
+%{_bindir}/chrpath -d %{buildroot}%{_libdir}/libprelude.so.*.*.*
 
 %if %mdkversion >= 1020
 %multiarch_binaries %{buildroot}%{_bindir}/libprelude-config
