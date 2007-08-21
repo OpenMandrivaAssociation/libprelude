@@ -5,7 +5,7 @@
 
 Name:           libprelude
 Version:        0.9.14
-Release:        %mkrel 2
+Release:        %mkrel 3
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPL
 Group:          System/Libraries
@@ -61,6 +61,7 @@ Requires:       %{libname} = %{version}-%{release}
 Requires:       libltdl-devel
 Provides:       prelude-devel = %{version}-%{release}
 Conflicts:      %{mklibname prelude 0}-devel
+Obsoletes:	%libname-devel
 
 %description -n %{libnamedevel}
 Libraries, include files, etc you can use to develop Prelude IDS
@@ -82,6 +83,7 @@ Requires:       %{libnamedevel} = %{version}-%{release}
 Requires:       libltdl-devel
 Provides:       prelude-static-devel = %{version}-%{release}
 Conflicts:      %{mklibname prelude 0}-devel
+Obsoletes:	%libname-static-devel
 
 %description -n %{libnamestaticdevel}
 Libraries, include files, etc you can use to develop Prelude IDS
