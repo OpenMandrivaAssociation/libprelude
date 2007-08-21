@@ -20,8 +20,8 @@ BuildRequires:  gtk-doc
 BuildRequires:  libgnutls-devel
 BuildRequires:  zlib-devel
 BuildRequires:  perl-devel
-BuildRequires:  python
-BuildRequires:  python-devel
+BuildRequires:	libnetfilter_queue-devel
+%py_requires -d
 %if %mdkversion >= 1020
 BuildRequires:  multiarch-utils
 %endif
