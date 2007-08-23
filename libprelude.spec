@@ -4,8 +4,8 @@
 %define libnamestaticdevel      %mklibname prelude -d -s
 
 Name:           libprelude
-Version:        0.9.14
-Release:        %mkrel 3
+Version:        0.9.15
+Release:        %mkrel 1
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPL
 Group:          System/Libraries
@@ -59,8 +59,7 @@ Group:          Development/C
 Requires:       %{libname} = %{version}-%{release}
 Requires:       libltdl-devel
 Provides:       prelude-devel = %{version}-%{release}
-Conflicts:      %{mklibname prelude 0}-devel
-Obsoletes:	%libname-devel
+Obsoletes:      %{libname}-devel
 
 %description -n %{libnamedevel}
 Libraries, include files, etc you can use to develop Prelude IDS
@@ -81,8 +80,7 @@ Group:          Development/C
 Requires:       %{libnamedevel} = %{version}-%{release}
 Requires:       libltdl-devel
 Provides:       prelude-static-devel = %{version}-%{release}
-Conflicts:      %{mklibname prelude 0}-devel
-Obsoletes:	%libname-static-devel
+Obsoletes:      %{libname}-static-devel
 
 %description -n %{libnamestaticdevel}
 Libraries, include files, etc you can use to develop Prelude IDS
@@ -138,15 +136,13 @@ Provides perl bindings for prelude.
     --includedir=%{_includedir}/%{name} \
     --enable-gtk-doc \
     --with-html-dir=%{_docdir}/%{libnamedevel}
-%{__make}
+%{make}
 
 %install
 %{__rm} -rf %{buildroot}
 
 %{makeinstall_std}
 %{makeinstall_std} -C bindings/perl
-
-##%{__mkdir_p} %{buildroot}%{_var}/spool/prelude
 
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libprelude.so.*.*.*
 
@@ -186,11 +182,13 @@ Provides perl bindings for prelude.
 %files -n prelude-tools
 %defattr(-,root,root,0755)
 %doc AUTHORS ChangeLog README INSTALL
+%{_bindir}/prelude-adduser
+%{_bindir}/prelude-admin
+%{_mandir}/man1/prelude-admin.1*
 %dir %{_sysconfdir}/prelude
 %dir %{_sysconfdir}/prelude/default
 %dir %{_sysconfdir}/prelude/profile
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/prelude/default/*.conf
-%{_bindir}/prelude-adduser
 %dir %{_var}/spool/prelude
 
 %files -n python-prelude
