@@ -24,7 +24,6 @@ BuildRequires:  perl-devel
 %if %mdkversion >= 1020
 BuildRequires:  multiarch-utils
 %endif
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 The Prelude Library is a collection of generic functions providing
