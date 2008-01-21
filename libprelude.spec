@@ -5,9 +5,9 @@
 
 Name:           libprelude
 Version:        0.9.16.1
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        Prelude Hybrid Intrusion Detection System Library
-License:        GPL
+License:        GPLv2+
 Group:          System/Libraries
 URL:            http://www.prelude-ids.org/
 Source0:        http://www.prelude-ids.org/download/releases/%{name}-%{version}.tar.gz
