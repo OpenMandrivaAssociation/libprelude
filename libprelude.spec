@@ -4,8 +4,8 @@
 %define libnamestaticdevel      %mklibname prelude -d -s
 
 Name:           libprelude
-Version:        0.9.16.1
-Release:        %mkrel 3
+Version:        0.9.16.2
+Release:        %mkrel 1
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
 Group:          System/Libraries
@@ -59,7 +59,7 @@ Group:          Development/C
 Requires:       %{libname} = %{version}-%{release}
 Requires:       libltdl-devel
 Provides:       prelude-devel = %{version}-%{release}
-Obsoletes:      %{libname}-devel
+Obsoletes:      %{libname}-devel < %{version}-%{release}
 
 %description -n %{libnamedevel}
 Libraries, include files, etc you can use to develop Prelude IDS
@@ -80,7 +80,7 @@ Group:          Development/C
 Requires:       %{libnamedevel} = %{version}-%{release}
 Requires:       libltdl-devel
 Provides:       prelude-static-devel = %{version}-%{release}
-Obsoletes:      %{libname}-static-devel
+Obsoletes:      %{libname}-static-devel < %{version}-%{release}
 
 %description -n %{libnamestaticdevel}
 Libraries, include files, etc you can use to develop Prelude IDS
