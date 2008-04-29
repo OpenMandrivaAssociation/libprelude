@@ -1,11 +1,13 @@
+%define _localstatedir %{_var}
+
 %define major                   2
 %define libname                 %mklibname prelude %{major}
 %define libnamedevel            %mklibname prelude -d
 %define libnamestaticdevel      %mklibname prelude -d -s
 
 Name:           libprelude
-Version:        0.9.16.2
-Release:        %mkrel 2
+Version:        0.9.17
+Release:        %mkrel 1
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
 Group:          System/Libraries
@@ -14,7 +16,6 @@ Source0:        http://www.prelude-ids.org/download/releases/%{name}-%{version}.
 Source1:        http://www.prelude-ids.org/download/releases/%{name}-%{version}.tar.gz.sig
 Source2:        http://www.prelude-ids.org/download/releases/%{name}-%{version}.tar.gz.md5
 Source3:        http://www.prelude-ids.org/download/releases/%{name}-%{version}.txt
-Patch0:         libprelude-0.9.3-spool-dir.patch
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
 BuildRequires:  libgnutls-devel
@@ -122,7 +123,6 @@ Provides perl bindings for prelude.
 
 %prep
 %setup -q
-%patch0 -p0
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
 %{__autoconf}
 
