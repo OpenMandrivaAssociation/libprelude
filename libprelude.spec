@@ -6,16 +6,16 @@
 %define libnamestaticdevel      %mklibname prelude -d -s
 
 Name:           libprelude
-Version:        0.9.17
+Version:        0.9.17.2
 Release:        %mkrel 1
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
 Group:          System/Libraries
 URL:            http://www.prelude-ids.org/
-Source0:        http://www.prelude-ids.org/download/releases/%{name}-%{version}.tar.gz
-Source1:        http://www.prelude-ids.org/download/releases/%{name}-%{version}.tar.gz.sig
-Source2:        http://www.prelude-ids.org/download/releases/%{name}-%{version}.tar.gz.md5
-Source3:        http://www.prelude-ids.org/download/releases/%{name}-%{version}.txt
+Source0:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz
+Source1:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.sig
+Source2:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.md5
+Source3:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.txt
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
 BuildRequires:  libgnutls-devel
