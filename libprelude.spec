@@ -201,5 +201,7 @@ Provides perl bindings for prelude.
 
 %files -n perl-prelude
 %defattr(-,root,root,0755)
-%{perl_vendorlib}/*/auto/Prelude/Prelude.so
-%{perl_vendorlib}/*/Prelude.pm
+%{perl_vendorarch}/Prelude.pm
+%{perl_vendorarch}/PreludeEasy.pm
+%{perl_vendorarch}/auto/Prelude
+%{perl_vendorarch}/auto/PreludeEasy
