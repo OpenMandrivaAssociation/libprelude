@@ -140,7 +140,7 @@ Provides perl bindings for prelude.
 
 (
 cd bindings/perl
-perl Makefile.PL
+perl Makefile.PL INSTALLDIRS=vendor
 make
 )
 
