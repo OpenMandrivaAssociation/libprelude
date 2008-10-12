@@ -142,7 +142,6 @@ Provides perl bindings for prelude.
 %{__rm} -rf %{buildroot}
 
 %{makeinstall_std}
-%{makeinstall_std} -C bindings/perl
 
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libprelude.so.*.*.*
 
