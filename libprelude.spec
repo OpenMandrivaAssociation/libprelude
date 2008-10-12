@@ -138,10 +138,18 @@ Provides perl bindings for prelude.
     --with-html-dir=%{_docdir}/%{libnamedevel}
 %{make}
 
+(
+cd bindings/perl
+perl Makefile.PL
+make
+)
+
 %install
 %{__rm} -rf %{buildroot}
 
 %{makeinstall_std}
+
+%{makeinstall_std} -C bindings/perl
 
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libprelude.so.*.*.*
 
@@ -201,6 +209,6 @@ Provides perl bindings for prelude.
 %files -n perl-prelude
 %defattr(-,root,root,0755)
 %{perl_vendorarch}/Prelude.pm
-%{perl_vendorarch}/PreludeEasy.pm
 %{perl_vendorarch}/auto/Prelude
+%{perl_vendorarch}/PreludeEasy.pm
 %{perl_vendorarch}/auto/PreludeEasy
