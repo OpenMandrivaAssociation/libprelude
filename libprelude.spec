@@ -16,13 +16,13 @@ Source0:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{versi
 Source1:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.sig
 Source2:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.md5
 Source3:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.txt
-Patch0:		libprelude-0.9.21.2-fix-str-fmt.patch 
+Patch0:		libprelude-0.9.21.2-fix-str-fmt.patch
+Patch1:		libprelude-0.9.21.3-ltdl.patch
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
 BuildRequires:  libgnutls-devel
 BuildRequires:  zlib-devel
 BuildRequires:  perl-devel
-BuildRequires:	libltdl-devel
 %if %mdkversion >= 1020
 BuildRequires:  multiarch-utils
 %endif
@@ -126,6 +126,7 @@ Provides perl bindings for prelude.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p0
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
 %{__autoconf}
 
@@ -133,6 +134,7 @@ Provides perl bindings for prelude.
 %{configure2_5x} \
     --enable-static \
     --enable-shared \
+    --with-included-ltdl \
     --with-perl-installdirs=vendor \
     --enable-python \
     --without-included-regex \
