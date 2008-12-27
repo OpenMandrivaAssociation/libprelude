@@ -6,8 +6,8 @@
 %define libnamestaticdevel      %mklibname prelude -d -s
 
 Name:           libprelude
-Version:        0.9.21.2
-Release:        %mkrel 3
+Version:        0.9.21.3
+Release:        %mkrel 1
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
 Group:          System/Libraries
