@@ -16,6 +16,7 @@ Source0:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{versi
 Source1:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.sig
 Source2:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.md5
 Source3:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.txt
+Patch0:		libprelude-0.9.21.2-fix-str-fmt.patch 
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
 BuildRequires:  libgnutls-devel
@@ -123,6 +124,7 @@ Provides perl bindings for prelude.
 
 %prep
 %setup -q
+%patch0 -p0
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
 %{__autoconf}
 
