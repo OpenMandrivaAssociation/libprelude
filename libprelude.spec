@@ -22,6 +22,7 @@ BuildRequires:  gtk-doc
 BuildRequires:  libgnutls-devel
 BuildRequires:  zlib-devel
 BuildRequires:  perl-devel
+BuildRequires:	libltdl-devel
 %if %mdkversion >= 1020
 BuildRequires:  multiarch-utils
 %endif
