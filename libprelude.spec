@@ -7,7 +7,7 @@
 
 Name:           libprelude
 Version:        0.9.21.2
-Release:        %mkrel 2
+Release:        %mkrel 3
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
 Group:          System/Libraries
@@ -21,7 +21,6 @@ BuildRequires:  gtk-doc
 BuildRequires:  libgnutls-devel
 BuildRequires:  zlib-devel
 BuildRequires:  perl-devel
-%py_requires -d
 %if %mdkversion >= 1020
 BuildRequires:  multiarch-utils
 %endif
@@ -109,6 +108,7 @@ Manager.
 Summary:        Python bindings for prelude
 Group:          Development/Python
 Requires:       %{libname} = %{version}-%{release}
+%py_requires -d
 
 %description -n python-prelude
 Provides python bindings for prelude.
