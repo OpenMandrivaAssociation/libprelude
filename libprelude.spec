@@ -6,7 +6,7 @@
 %define libnamestaticdevel      %mklibname prelude -d -s
 
 Name:           libprelude
-Version:        0.9.22
+Version:        0.9.23
 Release:        %mkrel 1
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
@@ -216,5 +216,4 @@ make
 %defattr(-,root,root,0755)
 %{perl_vendorarch}/Prelude.pm
 %{perl_vendorarch}/auto/Prelude
-%{perl_vendorarch}/PreludeEasy.pm
 %{perl_vendorarch}/auto/PreludeEasy
