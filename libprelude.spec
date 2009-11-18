@@ -7,7 +7,8 @@
 
 Name:           libprelude
 Version:        0.9.24.1
-Release:        %mkrel 1
+
+Release:        %mkrel 2
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
 Group:          System/Libraries
@@ -130,8 +131,11 @@ Provides perl bindings for prelude.
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
 
 %build
+libtoolize --copy --force --install --ltdl
+
 autoreconf -fi
-%{configure2_5x} \
+
+%configure2_5x \
     --enable-static \
     --enable-shared \
     --without-included-ltdl \
@@ -141,7 +145,7 @@ autoreconf -fi
     --includedir=%{_includedir}/%{name} \
     --enable-gtk-doc \
     --with-html-dir=%{_docdir}/%{libnamedevel}
-%{make}
+%make
 
 (
 cd bindings/perl
