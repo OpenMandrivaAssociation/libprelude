@@ -7,8 +7,7 @@
 
 Name:           libprelude
 Version:        0.9.24.1
-
-Release:        %mkrel 2
+Release:        %mkrel 3
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
 Group:          System/Libraries
@@ -27,6 +26,8 @@ BuildRequires:  perl-devel
 %if %mdkversion >= 1020
 BuildRequires:  multiarch-utils
 %endif
+BuildRequires:	libtool
+BuildRequires:	libtool-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
@@ -132,13 +133,12 @@ Provides perl bindings for prelude.
 
 %build
 libtoolize --copy --force --install --ltdl
-
 autoreconf -fi
 
 %configure2_5x \
+    --without-included-ltdl \
     --enable-static \
     --enable-shared \
-    --without-included-ltdl \
     --with-perl-installdirs=vendor \
     --with-python \
     --without-included-regex \
