@@ -6,7 +6,7 @@
 %define libnamestaticdevel      %mklibname prelude -d -s
 
 Name:           libprelude
-Version:        0.9.25
+Version:        1.0.0
 Release:        %mkrel 1
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
@@ -23,6 +23,7 @@ BuildRequires:  gtk-doc
 BuildRequires:  libgnutls-devel
 BuildRequires:  zlib-devel
 BuildRequires:  perl-devel
+BuildRequires:	ruby-devel
 %if %mdkversion >= 1020
 BuildRequires:  multiarch-utils
 %endif
@@ -125,6 +126,14 @@ Requires:       %{libname} = %{version}-%{release}
 %description -n perl-prelude
 Provides perl bindings for prelude.
 
+%package -n ruby-prelude
+Summary:	Ruby bindings for prelude
+Group:		Development/Ruby
+Requires:	%{libname} = %{version}-%{release}
+
+%description -n ruby-prelude
+Provides ruby bindings for prelude.
+
 %prep
 %setup -q
 %patch0 -p0
@@ -193,7 +202,7 @@ make
 %{_libdir}/*.la
 %{_libdir}/pkgconfig/*.pc
 %dir %{_includedir}/libprelude
-%{_includedir}/libprelude/*.h
+%{_includedir}/libprelude/*
 %{_datadir}/aclocal/*.m4
 
 %files -n %{libnamestaticdevel}
@@ -221,3 +230,7 @@ make
 %{perl_vendorarch}/Prelude.pm
 %{perl_vendorarch}/auto/Prelude
 %{perl_vendorarch}/auto/PreludeEasy
+
+%files -n ruby-prelude
+%defattr(-,root,root,0755)
+%{ruby_sitearchdir}/*
