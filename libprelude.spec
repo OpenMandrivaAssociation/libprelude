@@ -233,7 +233,6 @@ make
 %defattr(-,root,root,0755)
 %{perl_vendorarch}/Prelude.pm
 %{perl_vendorarch}/auto/Prelude
-%{perl_vendorarch}/auto/PreludeEasy
 
 %files -n ruby-prelude
 %defattr(-,root,root,0755)
