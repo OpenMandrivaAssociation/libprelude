@@ -7,7 +7,7 @@
 
 Name:           libprelude
 Version:        1.0.0
-Release:        %mkrel 4
+Release:        %mkrel 5
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
 Group:          System/Libraries
