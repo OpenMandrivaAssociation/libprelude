@@ -18,6 +18,8 @@ Source2:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-
 Source3:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.txt
 Patch0:		libprelude-0.9.22-fix-str-fmt.patch
 Patch1:		libprelude-0.9.21.3-ltdl.patch
+Patch2:		fix-ltdl-hack.patch
+Patch3:		libprelude-1.0.0-gcc46.patch
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
 BuildRequires:  libgnutls-devel
@@ -138,6 +140,8 @@ Provides ruby bindings for prelude.
 %setup -q
 %patch0 -p0
 %patch1 -p0
+%patch2 -p1
+%patch3 -p0
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
 
 %build
