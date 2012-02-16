@@ -114,12 +114,9 @@ Provides ruby bindings for prelude.
 %patch1 -p0
 %patch2 -p1
 %patch3 -p0
-%{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
-
-%build
-libtoolize --copy --force --install --ltdl
 autoreconf -fi
 
+%build
 %configure2_5x \
     --without-included-ltdl \
     --disable-static \
@@ -132,18 +129,14 @@ autoreconf -fi
     --with-html-dir=%{_docdir}/%{devname}
 %make
 
-(
 cd bindings/perl
 perl Makefile.PL INSTALLDIRS=vendor
 make
-)
 
 %install
-%{__rm} -rf %{buildroot}
+%makeinstall_std
 
-%{makeinstall_std}
-
-%{makeinstall_std} -C bindings/perl
+%makeinstall_std -C bindings/perl
 
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libprelude.so.*.*.*
 
