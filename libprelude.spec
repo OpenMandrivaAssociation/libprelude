@@ -78,7 +78,6 @@ sensor.
 %package -n	prelude-tools
 Summary:	The interface for %{libname}
 Group:		Networking/Other
-Requires:	%{libname} >= %{version}-%{release}
 
 %description -n	prelude-tools
 Provides a convenient interface for sending alerts to Prelude
@@ -87,7 +86,6 @@ Manager.
 %package -n	python-prelude
 Summary:	Python bindings for prelude
 Group:		Development/Python
-Requires:	%{libname} >= %{version}-%{release}
 
 %description -n	python-prelude
 Provides python bindings for prelude.
@@ -95,7 +93,6 @@ Provides python bindings for prelude.
 %package -n	perl-prelude
 Summary:	Perl bindings for prelude
 Group:		Development/Perl
-Requires:	%{libname} >= %{version}-%{release}
 
 %description -n	perl-prelude
 Provides perl bindings for prelude.
@@ -103,7 +100,6 @@ Provides perl bindings for prelude.
 %package -n	ruby-prelude
 Summary:	Ruby bindings for prelude
 Group:		Development/Ruby
-Requires:	%{libname} >= %{version}-%{release}
 
 %description -n	ruby-prelude
 Provides ruby bindings for prelude.
