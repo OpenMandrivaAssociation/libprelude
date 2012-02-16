@@ -17,6 +17,8 @@ Patch0:		libprelude-0.9.22-fix-str-fmt.patch
 Patch1:		libprelude-0.9.21.3-ltdl.patch
 Patch2:		fix-ltdl-hack.patch
 Patch3:		libprelude-1.0.0-gcc46.patch
+# http://cvs.pld-linux.org/cgi-bin/viewvc.cgi/cvs/packages/libprelude/libprelude-ruby.patch?view=co
+Patch4:		libprelude-1.0.0-ruby1.9.patch
 BuildRequires:	chrpath
 BuildRequires:	gtk-doc
 BuildRequires:	libgnutls-devel
@@ -110,6 +112,7 @@ Provides ruby bindings for prelude.
 %patch1 -p0
 %patch2 -p1
 %patch3 -p0
+%patch4 -p1 -b .ruby1.9~
 autoreconf -fi
 
 %build
