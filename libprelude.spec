@@ -176,6 +176,7 @@ rm -f %{buildroot}%{_libdir}/*.*a
 %files -n perl-prelude
 %{perl_vendorarch}/Prelude.pm
 %{perl_vendorarch}/auto/Prelude
+%{perl_vendorarch}/auto/PreludeEasy
 
 %files -n ruby-prelude
 %{ruby_sitearchdir}/*
