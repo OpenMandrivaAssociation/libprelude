@@ -1,29 +1,27 @@
-%define _localstatedir %{_var}
+%define	major	2
+%define	libname	%mklibname prelude %{major}
+%define	devname	%mklibname prelude -d
 
-%define major 2
-%define libname %mklibname prelude %{major}
-%define libnamedevel %mklibname prelude -d
-
-Name:           libprelude
-Version:        1.0.0
+Name:		libprelude
+Version:	1.0.0
 Release:	8
-Summary:        Prelude Hybrid Intrusion Detection System Library
-License:        GPLv2+
-Group:          System/Libraries
-URL:            http://www.prelude-ids.org/
+Summary:	Prelude Hybrid Intrusion Detection System Library
+License:	GPLv2+
+Group:		System/Libraries
+URL:		http://www.prelude-ids.org/
 Source0:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz
-Source1:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.sig
-Source2:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.md5
-Source3:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.txt
+Source1:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.sig
+Source2:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.md5
+Source3:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.txt
 Patch0:		libprelude-0.9.22-fix-str-fmt.patch
 Patch1:		libprelude-0.9.21.3-ltdl.patch
 Patch2:		fix-ltdl-hack.patch
 Patch3:		libprelude-1.0.0-gcc46.patch
-BuildRequires:  chrpath
-BuildRequires:  gtk-doc
-BuildRequires:  libgnutls-devel
-BuildRequires:  zlib-devel
-BuildRequires:  perl-devel
+BuildRequires:	chrpath
+BuildRequires:	gtk-doc
+BuildRequires:	libgnutls-devel
+BuildRequires:	zlib-devel
+BuildRequires:	perl-devel
 BuildRequires:	ruby-devel
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libtool-devel
@@ -39,12 +37,12 @@ line, or wide configuration, available from the Manager), and a
 generic plugin API. It allows you to easily turn your favorite
 security program into a Prelude sensor.
 
-%package -n %{libname}
-Summary:        Prelude Hybrid Intrusion Detection System Library
-Group:          System/Libraries
-Provides:       %{name} = %{version}-%{release}
+%package -n	%{libname}
+Summary:	Prelude Hybrid Intrusion Detection System Library
+Group:		System/Libraries
+Provides:	%{name} = %{version}-%{release}
 
-%description -n %{libname}
+%description -n	%{libname}
 The Prelude Library is a collection of generic functions providing
 communication between the Prelude Hybrid IDS suite components. It
 provides a convenient interface for sending alerts to Prelude
@@ -55,15 +53,15 @@ line, or wide configuration, available from the Manager), and a
 generic plugin API. It allows you to easily turn your favorite
 security program into a Prelude sensor.
 
-%package -n %{libnamedevel}
-Summary:        Libraries, includes, etc. for developing Prelude IDS sensors
-Group:          Development/C
-Requires:       %{libname} >= %{version}-%{release}
-Requires:       libltdl-devel
-Provides:       prelude-devel = %{version}-%{release}
-Obsoletes:      %{libname}-devel < %{version}-%{release}
+%package -n	%{devname}
+Summary:	Libraries, includes, etc. for developing Prelude IDS sensors
+Group:		Development/C
+Requires:	%{libname} >= %{version}-%{release}
+Requires:	libltdl-devel
+Provides:	prelude-devel = %{version}-%{release}
+Obsoletes:	%{libname}-devel < %{version}-%{release}
 
-%description -n %{libnamedevel}
+%description -n	%{devname}
 Libraries, include files, etc you can use to develop Prelude IDS
 sensors using the Prelude Library. The Prelude Library is a
 collection of generic functions providing communication between
@@ -76,38 +74,38 @@ available from the Manager), and a generic plugin API. It allows
 you to easily turn your favorite security program into a Prelude
 sensor.
 
-%package -n prelude-tools
-Summary:        The interface for %{libname}
-Group:          Networking/Other
-Requires:       %{libname} >= %{version}-%{release}
+%package -n	prelude-tools
+Summary:	The interface for %{libname}
+Group:		Networking/Other
+Requires:	%{libname} >= %{version}-%{release}
 
-%description -n prelude-tools
+%description -n	prelude-tools
 Provides a convenient interface for sending alerts to Prelude
 Manager.
 
-%package -n python-prelude
-Summary:        Python bindings for prelude
-Group:          Development/Python
-Requires:       %{libname} >= %{version}-%{release}
+%package -n	python-prelude
+Summary:	Python bindings for prelude
+Group:		Development/Python
+Requires:	%{libname} >= %{version}-%{release}
 %py_requires -d
 
-%description -n python-prelude
+%description -n	python-prelude
 Provides python bindings for prelude.
 
-%package -n perl-prelude
-Summary:        Perl bindings for prelude
-Group:          Development/Perl
-Requires:       %{libname} >= %{version}-%{release}
+%package -n	perl-prelude
+Summary:	Perl bindings for prelude
+Group:		Development/Perl
+Requires:	%{libname} >= %{version}-%{release}
 
-%description -n perl-prelude
+%description -n	perl-prelude
 Provides perl bindings for prelude.
 
-%package -n ruby-prelude
+%package -n	ruby-prelude
 Summary:	Ruby bindings for prelude
 Group:		Development/Ruby
 Requires:	%{libname} >= %{version}-%{release}
 
-%description -n ruby-prelude
+%description -n	ruby-prelude
 Provides ruby bindings for prelude.
 
 %prep
@@ -131,7 +129,7 @@ autoreconf -fi
     --without-included-regex \
     --includedir=%{_includedir}/%{name} \
     --enable-gtk-doc \
-    --with-html-dir=%{_docdir}/%{libnamedevel}
+    --with-html-dir=%{_docdir}/%{devname}
 %make
 
 (
@@ -158,8 +156,8 @@ rm -f %{buildroot}%{_libdir}/*.*a
 %doc AUTHORS ChangeLog README INSTALL
 %{_libdir}/lib*.so.*
 
-%files -n %{libnamedevel}
-%doc %{_docdir}/%{libnamedevel}
+%files -n %{devname}
+%doc %{_docdir}/%{devname}
 %{multiarch_bindir}/libprelude-config
 %{_bindir}/libprelude-config
 %{_libdir}/*.so
