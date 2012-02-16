@@ -21,13 +21,13 @@ Patch3:		libprelude-1.0.0-gcc46.patch
 Patch4:		libprelude-1.0.0-ruby1.9.patch
 BuildRequires:	chrpath
 BuildRequires:	gtk-doc
-BuildRequires:	libgnutls-devel
-BuildRequires:	zlib-devel
+BuildRequires:	pkgconfig(gnutls)
+BuildRequires:	pkgconfig(zlib)
 BuildRequires:	perl-devel
-BuildRequires:	ruby-devel
+BuildRequires:	pkgconfig(ruby-1.9)
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libtool-devel
-BuildRequires:	python-devel
+BuildRequires:	pkgconfig(python)
 
 %description
 The Prelude Library is a collection of generic functions providing
