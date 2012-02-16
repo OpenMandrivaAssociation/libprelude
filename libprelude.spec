@@ -28,6 +28,7 @@ BuildRequires:	pkgconfig(ruby-1.9)
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libtool-devel
 BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(lua)
 BuildRequires:	swig
 
 %description
