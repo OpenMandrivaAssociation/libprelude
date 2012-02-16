@@ -85,6 +85,13 @@ Group:		Networking/Other
 Provides a convenient interface for sending alerts to Prelude
 Manager.
 
+%package -n	lua-prelude
+Summary:	Lua bindings for prelude
+Group:		Development/Other
+
+%description -n	lua-prelude
+Provides lua bindings for prelude.
+
 %package -n	python-prelude
 Summary:	Python bindings for prelude
 Group:		Development/Python
@@ -152,7 +159,7 @@ rm -f %{buildroot}%{_libdir}/*.*a
 %doc %{_docdir}/%{devname}
 %{multiarch_bindir}/libprelude-config
 %{_bindir}/libprelude-config
-%{_libdir}/*.so
+%{_libdir}/lib*.so
 
 %{_libdir}/pkgconfig/*.pc
 %dir %{_includedir}/libprelude
@@ -169,6 +176,9 @@ rm -f %{buildroot}%{_libdir}/*.*a
 %dir %{_sysconfdir}/prelude/profile
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/prelude/default/*.conf
 %dir %{_var}/spool/prelude
+
+%files -n lua-prelude
+%{_libdir}/PreludeEasy.so
 
 %files -n python-prelude
 %{_libdir}/python*/site-packages/*
