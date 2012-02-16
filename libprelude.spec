@@ -120,6 +120,7 @@ Provides ruby bindings for prelude.
 %patch2 -p1
 %patch3 -p0
 %patch4 -p1 -b .ruby1.9~
+rm -f bindings/ruby/PreludeEasy.cxx 
 autoreconf -fi
 
 %build
