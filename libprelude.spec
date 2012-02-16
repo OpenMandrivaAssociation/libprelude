@@ -25,6 +25,7 @@ BuildRequires:	perl-devel
 BuildRequires:	ruby-devel
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libtool-devel
+BuildRequires:	python-devel
 
 %description
 The Prelude Library is a collection of generic functions providing
@@ -87,7 +88,6 @@ Manager.
 Summary:	Python bindings for prelude
 Group:		Development/Python
 Requires:	%{libname} >= %{version}-%{release}
-%py_requires -d
 
 %description -n	python-prelude
 Provides python bindings for prelude.
