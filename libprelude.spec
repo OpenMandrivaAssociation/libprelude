@@ -4,7 +4,7 @@
 
 Name:		libprelude
 Version:	1.0.0
-Release:	8
+Release:	9
 Summary:	Prelude Hybrid Intrusion Detection System Library
 License:	GPLv2+
 Group:		System/Libraries
@@ -62,7 +62,7 @@ security program into a Prelude sensor.
 Summary:	Libraries, includes, etc. for developing Prelude IDS sensors
 Group:		Development/C
 Requires:	%{libname} >= %{version}-%{release}
-Requires:	libltdl-devel
+Requires:	libtool-devel
 Provides:	prelude-devel = %{version}-%{release}
 Obsoletes:	%{libname}-devel < %{version}-%{release}
 
