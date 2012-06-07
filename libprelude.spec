@@ -64,7 +64,7 @@ security program into a Prelude sensor.
 Summary:        Libraries, includes, etc. for developing Prelude IDS sensors
 Group:          Development/C
 Requires:       %{libname} = %{version}-%{release}
-Requires:       libltdl-devel
+Requires:       libtool-devel
 Provides:       prelude-devel = %{version}-%{release}
 Obsoletes:      %{libname}-devel < %{version}-%{release}
 
@@ -85,7 +85,7 @@ sensor.
 Summary:        Static libraries for developing Prelude IDS sensors
 Group:          Development/C
 Requires:       %{libnamedevel} = %{version}-%{release}
-Requires:       libltdl-devel
+Requires:       libtool-devel
 Provides:       prelude-static-devel = %{version}-%{release}
 Obsoletes:      %{libname}-static-devel < %{version}-%{release}
 
