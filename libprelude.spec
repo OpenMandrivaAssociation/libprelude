@@ -21,6 +21,7 @@ Patch1:		libprelude-0.9.21.3-ltdl.patch
 # (blino) fix build with libtool 2.4, from OpenEmbedded git
 Patch2:		fix-ltdl-hack.patch
 Patch3:		libprelude-gnutls3.patch
+Patch4:		libprelude-1.0.0-ruby.patch
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
 BuildRequires:  gnutls-devel
@@ -142,11 +143,12 @@ Provides ruby bindings for prelude.
 %patch1 -p0
 %patch2 -p1 -b .lt24
 %patch3 -p2 -b .gnutls3
+%patch4 -p0 -b .ruby
 rm -f bindings/python/_PreludeEasy.cxx
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
 
 %build
-libtoolize --copy --force --install --ltdl
+#libtoolize --copy --force --install --ltdl
 autoreconf -fi
 
 %configure2_5x \
@@ -155,6 +157,7 @@ autoreconf -fi
     --enable-shared \
     --with-perl-installdirs=vendor \
     --with-python \
+    --with-ruby \
     --without-included-regex \
     --includedir=%{_includedir}/%{name} \
     --enable-gtk-doc \
