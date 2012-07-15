@@ -6,22 +6,19 @@
 %define libnamestaticdevel      %mklibname prelude -d -s
 
 Name:           libprelude
-Version:        1.0.0
-Release:        11
+Version:        1.0.1
+Release:        1
 Summary:        Prelude Hybrid Intrusion Detection System Library
 License:        GPLv2+
 Group:          System/Libraries
 URL:            http://www.prelude-ids.org/
 Source0:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz
-Source1:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.sig
-Source2:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz.md5
-Source3:        http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.txt
 Patch0:		libprelude-0.9.22-fix-str-fmt.patch
 Patch1:		libprelude-0.9.21.3-ltdl.patch
 # (blino) fix build with libtool 2.4, from OpenEmbedded git
 Patch2:		fix-ltdl-hack.patch
 Patch3:		libprelude-gnutls3.patch
-Patch4:		libprelude-1.0.0-ruby.patch
+#Patch4:		libprelude-1.0.0-ruby.patch
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
 BuildRequires:  gnutls-devel
@@ -143,7 +140,7 @@ Provides ruby bindings for prelude.
 %patch1 -p0
 %patch2 -p1 -b .lt24
 %patch3 -p2 -b .gnutls3
-%patch4 -p0 -b .ruby
+#%patch4 -p0 -b .ruby
 rm -f bindings/python/_PreludeEasy.cxx
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
 
@@ -179,16 +176,16 @@ make
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/*.so.*
 
 rm -f %{buildroot}%{_libdir}/*.la
+rm -f %{buildroot}%{ruby_sitearchdir}/*.*a
+rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 
 %multiarch_binaries %{buildroot}%{_bindir}/libprelude-config
 
 %files -n %{libname}
-%defattr(-,root,root,0755)
 %doc AUTHORS ChangeLog README INSTALL
 %{_libdir}/lib*.so.*
 
 %files -n %{libnamedevel}
-%defattr(-,root,root,0755)
 %doc %{_docdir}/%{libnamedevel}
 %{multiarch_bindir}/libprelude-config
 %{_bindir}/libprelude-config
@@ -199,11 +196,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_datadir}/aclocal/*.m4
 
 %files -n %{libnamestaticdevel}
-%defattr(-,root,root,0755)
 %{_libdir}/*.a
 
 %files -n prelude-tools
-%defattr(-,root,root,0755)
 %doc AUTHORS ChangeLog README INSTALL
 %{_bindir}/prelude-adduser
 %{_bindir}/prelude-admin
@@ -215,15 +210,12 @@ rm -f %{buildroot}%{_libdir}/*.la
 %dir %{_var}/spool/prelude
 
 %files -n python-prelude
-%defattr(-,root,root,0755)
 %{_libdir}/python*/site-packages/*
 
 %files -n perl-prelude
-%defattr(-,root,root,0755)
 %{perl_vendorarch}/Prelude.pm
 %{perl_vendorarch}/auto/Prelude
 %{perl_vendorarch}/auto/PreludeEasy
 
 %files -n ruby-prelude
-%defattr(-,root,root,0755)
-#%{ruby_sitearchdir}/*
+%{ruby_sitearchdir}/*
