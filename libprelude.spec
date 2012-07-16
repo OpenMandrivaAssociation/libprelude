@@ -18,19 +18,19 @@ Patch1:		libprelude-0.9.21.3-ltdl.patch
 # (blino) fix build with libtool 2.4, from OpenEmbedded git
 Patch2:		fix-ltdl-hack.patch
 Patch3:		libprelude-gnutls3.patch
-#Patch4:		libprelude-1.0.0-ruby.patch
-BuildRequires:  chrpath
-BuildRequires:  gtk-doc
+Patch4:		libprelude-1.0.0-ruby.patch
+Patch5:		libprelude-1.0.1-ruby1.9.diff
+BuildRequires:	autoconf automake libtool
 BuildRequires:  gnutls-devel
+BuildRequires:  gtk-doc
 BuildRequires:	libgcrypt-devel
-BuildRequires:  zlib-devel
+BuildRequires:	libtool-devel
+BuildRequires:	lua5.1-devel
 BuildRequires:  perl-devel
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
-BuildRequires:  multiarch-utils
-BuildRequires:	autoconf automake libtool
-BuildRequires:	libtool-devel
 BuildRequires:	swig
+BuildRequires:  zlib-devel
 
 %description
 The Prelude Library is a collection of generic functions providing
@@ -141,7 +141,9 @@ Provides ruby bindings for prelude.
 %patch1 -p0
 %patch2 -p1 -b .lt24
 %patch3 -p2 -b .gnutls3
-#patch4 -p0 -b .ruby
+%patch4 -p0 -b .ruby
+%patch5 -p0 -b .ruby
+
 rm -f bindings/python/_PreludeEasy.cxx
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
 
@@ -160,6 +162,11 @@ autoreconf -fi
     --includedir=%{_includedir}/%{name} \
     --enable-gtk-doc \
     --with-html-dir=%{_docdir}/%{libnamedevel}
+
+# removing rpath
+sed -i.rpath -e 's|LD_RUN_PATH=""||' bindings/Makefile.in
+sed -i.rpath -e 's|^sys_lib_dlsearch_path_spec="/lib /usr/lib|sys_lib_dlsearch_path_spec="/%{_lib} %{_libdir}|' libtool
+
 %make
 
 (
@@ -170,11 +177,9 @@ make
 
 %install
 
-%{makeinstall_std}
+%makeinstall_std
 
-%{makeinstall_std} -C bindings/perl
-
-%{_bindir}/chrpath -d %{buildroot}%{_libdir}/*.so.*
+%makeinstall_std -C bindings/perl
 
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{ruby_sitearchdir}/*.*a
