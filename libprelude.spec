@@ -25,9 +25,10 @@ BuildRequires:  gnutls-devel
 BuildRequires:	libgcrypt-devel
 BuildRequires:  zlib-devel
 BuildRequires:  perl-devel
+BuildRequires:	ruby
 BuildRequires:	ruby-devel
 BuildRequires:  multiarch-utils
-BuildRequires:	libtool
+BuildRequires:	autoconf automake libtool
 BuildRequires:	libtool-devel
 BuildRequires:	swig
 
@@ -140,7 +141,7 @@ Provides ruby bindings for prelude.
 %patch1 -p0
 %patch2 -p1 -b .lt24
 %patch3 -p2 -b .gnutls3
-#%patch4 -p0 -b .ruby
+#patch4 -p0 -b .ruby
 rm -f bindings/python/_PreludeEasy.cxx
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
 
