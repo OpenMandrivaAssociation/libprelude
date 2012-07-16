@@ -142,7 +142,7 @@ Provides ruby bindings for prelude.
 %patch2 -p1 -b .lt24
 %patch3 -p2 -b .gnutls3
 %patch4 -p0 -b .ruby
-%patch5 -p0 -b .ruby
+%patch5 -p1 -b .ruby1.9
 
 rm -f bindings/python/_PreludeEasy.cxx
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
