@@ -1,3 +1,5 @@
+%define with_ruby 0
+
 %define _localstatedir %{_var}
 
 %define major                   2
@@ -27,8 +29,9 @@ BuildRequires:	libgcrypt-devel
 BuildRequires:	libtool-devel
 BuildRequires:	lua5.1-devel
 BuildRequires:  perl-devel
-BuildRequires:	ruby
-BuildRequires:	ruby-devel
+%if %{with_ruby}
+BuildRequires:	ruby ruby-devel
+%endif
 BuildRequires:	swig
 BuildRequires:  zlib-devel
 
@@ -127,6 +130,7 @@ Requires:       %{libname} = %{version}-%{release}
 %description -n perl-prelude
 Provides perl bindings for prelude.
 
+%if %{with_ruby}
 %package -n ruby-prelude
 Summary:	Ruby bindings for prelude
 Group:		Development/Ruby
@@ -134,6 +138,7 @@ Requires:	%{libname} = %{version}-%{release}
 
 %description -n ruby-prelude
 Provides ruby bindings for prelude.
+%endif
 
 %prep
 %setup -q
@@ -157,7 +162,9 @@ autoreconf -fi
     --enable-shared \
     --with-perl-installdirs=vendor \
     --with-python \
+%if %{with_ruby}
     --with-ruby \
+%endif
     --without-included-regex \
     --includedir=%{_includedir}/%{name} \
     --enable-gtk-doc \
@@ -182,7 +189,9 @@ make
 %makeinstall_std -C bindings/perl
 
 rm -f %{buildroot}%{_libdir}/*.la
+%if %{with_ruby}
 rm -f %{buildroot}%{ruby_sitearchdir}/*.*a
+%endif
 rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 
 %multiarch_binaries %{buildroot}%{_bindir}/libprelude-config
@@ -223,5 +232,7 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %{perl_vendorarch}/auto/Prelude
 %{perl_vendorarch}/auto/PreludeEasy
 
+%if %{with_ruby}
 %files -n ruby-prelude
 %{ruby_sitearchdir}/*
+%endif
