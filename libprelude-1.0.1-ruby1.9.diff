@@ -1,0 +1,56 @@
+diff -Naur libprelude-1.0.1/configure.in libprelude-1.0.1.oden/configure.in
+--- libprelude-1.0.1/configure.in	2012-07-16 15:51:39.000000000 +0200
++++ libprelude-1.0.1.oden/configure.in	2012-07-16 15:52:23.000000000 +0200
+@@ -475,13 +475,13 @@
+        AC_MSG_ERROR([Could not find ruby binary])
+     fi
+ 
+-    RUBY_ARCHDIR=`$RUBY -e 'require "rbconfig.rb"; puts Config::expand("\$(archdir)")'`
+-    RUBY_LIBRUBYARG=`$RUBY -e 'require "rbconfig.rb"; puts Config::expand("\$(LIBRUBYARG)")'`
++    RUBY_ARCHDIR=`$RUBY -e 'require "rbconfig.rb"; puts RbConfig::expand("\$(archdir)")'`
++    RUBY_LIBRUBYARG=`$RUBY -e 'require "rbconfig.rb"; puts RbConfig::expand("\$(LIBRUBYARG)")'`
+ 
+     RUBY_LIBS="-L$RUBY_ARCHDIR $RUBY_LIBRUBYARG"
+     AC_SUBST(RUBY_LIBS)
+ 
+-    RUBY_CCFLAGS=`$RUBY -rrbconfig -e "print Config::CONFIG[['CFLAGS']]"`
++    RUBY_CCFLAGS=`$RUBY -rrbconfig -e "print RbConfig::CONFIG[['CFLAGS']]"`
+     AC_SUBST(RUBY_CCFLAGS)
+ 
+     old_CPPFLAGS="$CPPFLAGS"
+diff -Naur libprelude-1.0.1/m4/am_path_ruby.m4 libprelude-1.0.1.oden/m4/am_path_ruby.m4
+--- libprelude-1.0.1/m4/am_path_ruby.m4	2012-04-02 11:41:15.000000000 +0200
++++ libprelude-1.0.1.oden/m4/am_path_ruby.m4	2012-07-16 15:51:55.000000000 +0200
+@@ -15,7 +15,7 @@
+  [
+   dnl Find a Ruby interpreter.
+   m4_define_default([_AM_RUBY_INTERPRETER_LIST],
+-                    [ruby ruby1.8 ruby1.7 ruby1.6])
++                    [ruby ruby1.9 ruby1.8 ruby1.7 ruby1.6])
+ 
+   m4_if([$1],[],[
+     dnl No version check is needed.
+@@ -86,7 +86,7 @@
+   dnl rubydir -- where to install ruby scripts.
+   AC_CACHE_CHECK([for $am_display_RUBY script directory],
+     [am_cv_ruby_rubydir],
+-    [am_cv_ruby_rubydir=`$RUBY -rrbconfig -e "drive = File::PATH_SEPARATOR == ';' ? /\A\w:/ : /\A/; prefix = Regexp.new('\\A' + Regexp.quote(Config::CONFIG[['prefix']])); \\$prefix = Config::CONFIG[['prefix']].sub(drive, ''); \\$archdir = Config::CONFIG[['archdir']].sub(prefix, '\\$(prefix)').sub(drive, ''); print \\$archdir;"`])
++    [am_cv_ruby_rubydir=`$RUBY -rrbconfig -e "drive = File::PATH_SEPARATOR == ';' ? /\A\w:/ : /\A/; prefix = Regexp.new('\\A' + Regexp.quote(RbConfig::CONFIG[['prefix']])); \\$prefix = RbConfig::CONFIG[['prefix']].sub(drive, ''); \\$archdir = RbConfig::CONFIG[['archdir']].sub(prefix, '\\$(prefix)').sub(drive, ''); print \\$archdir;"`])
+   AC_SUBST([rubydir], [$am_cv_ruby_rubydir])
+ 
+   dnl pkgrubydir -- $PACKAGE directory under rubydir.
+@@ -96,11 +96,11 @@
+   dnl   (shared libraries)
+   AC_CACHE_CHECK([for $am_display_RUBY extension module directory],
+     [am_cv_ruby_rbexecdir],
+-    [am_cv_ruby_rbexecdir=`$RUBY -rrbconfig -e "drive = File::PATH_SEPARATOR == ';' ? /\A\w:/ : /\A/; prefix = Regexp.new('\\A' + Regexp.quote(Config::CONFIG[['prefix']])); \\$prefix = Config::CONFIG[['prefix']].sub(drive, ''); \\$sitearchdir = Config::CONFIG[['sitearchdir']].sub(prefix, '\\$(prefix)').sub(drive, ''); print \\$sitearchdir;" 2>/dev/null || echo "${RUBY_EXEC_PREFIX}/local/lib/site_ruby/${RUBY_VERSION}/${RUBY_PLATFORM}"`])
++    [am_cv_ruby_rbexecdir=`$RUBY -rrbconfig -e "drive = File::PATH_SEPARATOR == ';' ? /\A\w:/ : /\A/; prefix = Regexp.new('\\A' + Regexp.quote(RbConfig::CONFIG[['prefix']])); \\$prefix = RbConfig::CONFIG[['prefix']].sub(drive, ''); \\$sitearchdir = RbConfig::CONFIG[['sitearchdir']].sub(prefix, '\\$(prefix)').sub(drive, ''); print \\$sitearchdir;" 2>/dev/null || echo "${RUBY_EXEC_PREFIX}/local/lib/site_ruby/${RUBY_VERSION}/${RUBY_PLATFORM}"`])
+   AC_SUBST([rbexecdir], [$am_cv_ruby_rbexecdir])
+ 
+-  RUBY_INCLUDES=`$RUBY -r rbconfig -e 'if Config::CONFIG[["archdir"]] then print " -I" + Config::CONFIG[["archdir"]] end
+-                                       if Config::CONFIG[["rubyhdrdir"]] then print " -I" + Config::CONFIG[["rubyhdrdir"]] end'`
++  RUBY_INCLUDES=`$RUBY -r rbconfig -e 'if RbConfig::CONFIG[["archdir"]] then print " -I" + RbConfig::CONFIG[["archdir"]] end
++                                       if RbConfig::CONFIG[["rubyhdrdir"]] then print " -I" + RbConfig::CONFIG[["rubyhdrdir"]] end'`
+   AC_SUBST([RUBY_INCLUDES])
+ 
+   dnl pkgrbexecdir -- $(rbexecdir)/$(PACKAGE)
