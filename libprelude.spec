@@ -22,6 +22,7 @@ Patch2:		fix-ltdl-hack.patch
 Patch3:		libprelude-gnutls3.patch
 Patch4:		libprelude-1.0.0-ruby.patch
 Patch5:		libprelude-1.0.1-ruby1.9.diff
+Patch6:		libprelude-1.0.1-gets-undeclared.patch
 BuildRequires:	autoconf automake libtool
 BuildRequires:  gnutls-devel
 BuildRequires:  gtk-doc
@@ -148,6 +149,7 @@ Provides ruby bindings for prelude.
 %patch3 -p2 -b .gnutls3
 %patch4 -p0 -b .ruby
 %patch5 -p1 -b .ruby1.9
+%patch6 -p1 -b .gets
 
 rm -f bindings/python/_PreludeEasy.cxx
 %{__perl} -pi -e "s|/lib/|/%{_lib}/|g" configure.in
