@@ -1,4 +1,10 @@
-%define with_ruby 0
+%bcond_with crosscompile
+
+%if !%{with crosscompile}
+%bcond_without perl
+%bcond_without python
+%endif
+%bcond_with ruby
 
 %define _localstatedir %{_var}
 
@@ -29,8 +35,11 @@ BuildRequires:  gtk-doc
 BuildRequires:	libgcrypt-devel
 BuildRequires:	libtool-devel
 #BuildRequires:	lua5.1-devel
+%if !%{with crosscompile}
 BuildRequires:  perl-devel
-%if %{with_ruby}
+BuildRequires:  python-devel
+%endif
+%if %{with ruby}
 BuildRequires:	ruby ruby-devel
 %endif
 BuildRequires:	swig
@@ -114,6 +123,7 @@ Requires:       %{libname} = %{version}-%{release}
 Provides a convenient interface for sending alerts to Prelude
 Manager.
 
+%if !%{with crosscompile}
 %package -n python-prelude
 Summary:        Python bindings for prelude
 Group:          Development/Python
@@ -130,8 +140,9 @@ Requires:       %{libname} = %{version}-%{release}
 
 %description -n perl-prelude
 Provides perl bindings for prelude.
+%endif
 
-%if %{with_ruby}
+%if %{with ruby}
 %package -n ruby-prelude
 Summary:	Ruby bindings for prelude
 Group:		Development/Ruby
@@ -156,16 +167,25 @@ rm -f bindings/python/_PreludeEasy.cxx
 
 %build
 #libtoolize --copy --force --install --ltdl
-autoreconf -fi
+#autoreconf -fi
 
 %configure2_5x \
     --without-included-ltdl \
     --enable-static \
     --enable-shared \
     --with-perl-installdirs=vendor \
-    --with-python \
     --without-lua \
-%if %{with_ruby}
+%if %{with python}
+    --with-python \
+%else
+    --without-python \
+%endif
+%if %{with perl}
+    --with-perl \
+%else
+    --without-perl \
+%endif
+%if %{with ruby}
     --with-ruby \
 %endif
     --without-included-regex \
@@ -192,7 +212,7 @@ make
 %makeinstall_std -C bindings/perl
 
 rm -f %{buildroot}%{_libdir}/*.la
-%if %{with_ruby}
+%if %{with ruby}
 rm -f %{buildroot}%{ruby_sitearchdir}/*.*a
 %endif
 rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
@@ -227,6 +247,7 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/prelude/default/*.conf
 %dir %{_var}/spool/prelude
 
+%if !%{with crosscompile}
 %files -n python-prelude
 %{_libdir}/python*/site-packages/*
 
@@ -234,8 +255,9 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %{perl_vendorarch}/Prelude.pm
 %{perl_vendorarch}/auto/Prelude
 %{perl_vendorarch}/auto/PreludeEasy
+%endif
 
-%if %{with_ruby}
+%if %{with ruby}
 %files -n ruby-prelude
 %{ruby_sitearchdir}/*
 %endif
