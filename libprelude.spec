@@ -167,7 +167,7 @@ rm -f bindings/python/_PreludeEasy.cxx
 
 %build
 #libtoolize --copy --force --install --ltdl
-#autoreconf -fi
+autoreconf -fi
 
 %configure2_5x \
     --without-included-ltdl \
