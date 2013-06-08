@@ -1,5 +1,5 @@
---- m4/ltdl.m4~	2008-11-14 16:56:53.000000000 +0100
-+++ m4/ltdl.m4	2008-12-27 10:06:24.000000000 +0100
+--- ./m4/ltdl.m4~	2008-11-14 16:56:53.000000000 +0100
++++ ./m4/ltdl.m4	2008-12-27 10:06:24.000000000 +0100
 @@ -95,7 +95,7 @@
    "") enable_ltdl_convenience=yes
        ac_configure_args="$ac_configure_args --enable-ltdl-convenience" ;;

@@ -1,5 +1,5 @@
---- configure.in
-+++ configure.in
+--- ./configure.in
++++ ./configure.in
 @@ -465,9 +465,16 @@
  dnl * Ruby support                                   *
  dnl **************************************************

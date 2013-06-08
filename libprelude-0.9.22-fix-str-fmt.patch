@@ -1,5 +1,5 @@
---- bindings/low-level/perl/Prelude.c.str	2009-05-20 05:01:54.000000000 +0200
-+++ bindings/low-level/perl/Prelude.c	2009-05-20 05:02:11.000000000 +0200
+--- ./bindings/low-level/perl/Prelude.c.str	2009-05-20 05:01:54.000000000 +0200
++++ ./bindings/low-level/perl/Prelude.c	2009-05-20 05:02:11.000000000 +0200
 @@ -1740,7 +1740,7 @@
  	char buf[1024];
  
