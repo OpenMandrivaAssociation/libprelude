@@ -17,7 +17,7 @@
 Summary:        Prelude Hybrid Intrusion Detection System Library
 Name:           libprelude
 Version:        1.0.1
-Release:        4
+Release:        5
 License:        GPLv2+
 Group:          System/Libraries
 Url:            http://www.prelude-ids.org/
@@ -200,6 +200,7 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %{_includedir}/libprelude/*
 %{_datadir}/aclocal/*.m4
 
+%files -n prelude-tools
 %doc AUTHORS ChangeLog README INSTALL
 %{_bindir}/prelude-adduser
 %{_bindir}/prelude-admin
