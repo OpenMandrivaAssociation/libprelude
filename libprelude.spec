@@ -39,7 +39,7 @@ BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(zlib)
 %if !%{with crosscompile}
 BuildRequires:  perl-devel
-BuildRequires:  pkgconfig(python)
+BuildRequires:  pkgconfig(python-2.7)
 %endif
 %if %{with ruby}
 BuildRequires:	ruby-devel
