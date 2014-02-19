@@ -39,7 +39,6 @@ BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(zlib)
 %if !%{with crosscompile}
 BuildRequires:  perl-devel
-BuildRequires:  pkgconfig(python-2.7)
 %endif
 %if %{with ruby}
 BuildRequires:	ruby-devel
@@ -103,7 +102,7 @@ Manager.
 Summary:        Python bindings for prelude
 Group:          Development/Python
 Requires:       %{libname} = %{version}-%{release}
-%py_requires -d
+BuildRequires:  pkgconfig(python)
 
 %description -n python-prelude
 Provides python bindings for prelude.
