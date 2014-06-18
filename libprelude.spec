@@ -7,6 +7,7 @@
 %bcond_with ruby
 
 %define _localstatedir %{_var}
+%define __noautoreq '/usr/bin/python'
 
 %define major	2
 %define cppmaj	0
