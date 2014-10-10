@@ -1,0 +1,13 @@
+--- libprelude-1.0.1/bindings/low-level/perl/Prelude.c~	2014-07-05 20:40:23.228889133 +0000
++++ libprelude-1.0.1/bindings/low-level/perl/Prelude.c	2014-07-05 20:47:09.178722147 +0000
+@@ -1442,7 +1442,9 @@
+   #undef eof
+ #endif
+ #ifdef bool
+-  #undef bool
++  #ifndef __bool_true_false_are_defined
++    #undef bool
++  #endif
+ #endif
+ #ifdef close
+   #undef close
