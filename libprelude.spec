@@ -104,7 +104,6 @@ Manager.
 Summary:        Python bindings for prelude
 Group:          Development/Python
 Requires:       %{libname} = %{version}-%{release}
-%py_requires -d
 
 %description -n python-prelude
 Provides python bindings for prelude.
