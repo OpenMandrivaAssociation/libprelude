@@ -4,7 +4,7 @@
 %bcond_without perl
 %bcond_without python
 %endif
-%bcond_with ruby
+%bcond_without ruby
 
 %define _localstatedir %{_var}
 %define __noautoreq '/usr/bin/python'
@@ -28,9 +28,9 @@ Patch1:		libprelude-0.9.21.3-ltdl.patch
 # (blino) fix build with libtool 2.4, from OpenEmbedded git
 Patch2:		fix-ltdl-hack.patch
 Patch3:		libprelude-gnutls3.patch
-Patch4:		libprelude-1.0.0-ruby.patch
-Patch5:		libprelude-1.0.1-ruby1.9.diff
+Patch4:		libprelude-ruby.patch
 Patch6:		libprelude-1.0.1-gets-undeclared.patch
+Patch7:		libprelude-perl520.patch
 
 BuildRequires:  gtk-doc
 BuildRequires:	swig
@@ -137,6 +137,9 @@ sed -i -e "s|/lib/|/%{_lib}/|g" configure.in
 autoreconf -fi
 
 %build
+export CXX=g++
+export PYTHON=%__python2
+
 %configure2_5x \
 	--without-included-ltdl \
 	--disable-static \
@@ -165,7 +168,7 @@ autoreconf -fi
 sed -i.rpath -e 's|LD_RUN_PATH=""||' bindings/Makefile.in
 sed -i.rpath -e 's|^sys_lib_dlsearch_path_spec="/lib /usr/lib|sys_lib_dlsearch_path_spec="/%{_lib} %{_libdir}|' libtool
 
-%make
+%make CXX=clang++
 
 (
 cd bindings/perl
