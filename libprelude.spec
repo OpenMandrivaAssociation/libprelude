@@ -43,7 +43,7 @@ BuildRequires:  perl-devel
 BuildRequires:  pkgconfig(python)
 %endif
 %if %{with ruby}
-BuildRequires:	ruby-devel
+BuildRequires:	pkgconfig(ruby)
 %endif
 
 %description
