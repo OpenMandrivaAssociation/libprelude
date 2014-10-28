@@ -139,7 +139,7 @@ autoreconf -fi
 export CXX=g++
 export PYTHON=%__python2
 
-%configure2_5x \
+%configure \
 	--without-included-ltdl \
 	--disable-static \
 	--enable-shared \
