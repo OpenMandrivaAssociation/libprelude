@@ -18,7 +18,7 @@
 Summary:        Prelude Hybrid Intrusion Detection System Library
 Name:           libprelude
 Version:        1.0.1
-Release:        13
+Release:        14
 License:        GPLv2+
 Group:          System/Libraries
 Url:            http://www.prelude-ids.org/
@@ -167,7 +167,7 @@ export PYTHON=%__python2
 sed -i.rpath -e 's|LD_RUN_PATH=""||' bindings/Makefile.in
 sed -i.rpath -e 's|^sys_lib_dlsearch_path_spec="/lib /usr/lib|sys_lib_dlsearch_path_spec="/%{_lib} %{_libdir}|' libtool
 
-%make CXX=clang++
+%make CXX=%{__cxx}
 
 (
 cd bindings/perl
