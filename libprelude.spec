@@ -6,31 +6,25 @@
 %endif
 %bcond_without ruby
 
+%define _disable_lto 1
 %define _localstatedir %{_var}
 %define __noautoreq '/usr/bin/python'
 
-%define major	2
-%define cppmaj	0
+%define major	23
+%define cppmaj	8
 %define libname	%mklibname prelude %{major}
 %define libcpp	%mklibname preludecpp  %{cppmaj}
 %define devname	%mklibname prelude -d
 
 Summary:        Prelude Hybrid Intrusion Detection System Library
 Name:           libprelude
-Version:        1.0.1
-Release:        18
+Version:        1.2.6
+Release:        1
 License:        GPLv2+
 Group:          System/Libraries
 Url:            http://www.prelude-ids.org/
 Source0:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz
-Patch0:		libprelude-0.9.22-fix-str-fmt.patch
 Patch1:		libprelude-0.9.21.3-ltdl.patch
-# (blino) fix build with libtool 2.4, from OpenEmbedded git
-Patch2:		fix-ltdl-hack.patch
-Patch3:		libprelude-gnutls3.patch
-Patch4:		libprelude-ruby.patch
-Patch6:		libprelude-1.0.1-gets-undeclared.patch
-Patch7:		libprelude-perl520.patch
 
 BuildRequires:  gtk-doc
 BuildRequires:	swig
@@ -202,6 +196,7 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %dir %{_includedir}/libprelude
 %{_includedir}/libprelude/*
 %{_datadir}/aclocal/*.m4
+%{_datadir}/libprelude
 
 %files -n prelude-tools
 %doc AUTHORS ChangeLog README INSTALL
@@ -221,7 +216,6 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %files -n perl-prelude
 %{perl_vendorarch}/Prelude.pm
 %{perl_vendorarch}/auto/Prelude
-%{perl_vendorarch}/auto/PreludeEasy
 %endif
 
 %if %{with ruby}
