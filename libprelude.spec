@@ -19,7 +19,7 @@
 Summary:        Prelude Hybrid Intrusion Detection System Library
 Name:           libprelude
 Version:        1.2.6
-Release:        1
+Release:        2
 License:        GPLv2+
 Group:          System/Libraries
 Url:            http://www.prelude-ids.org/
@@ -34,7 +34,7 @@ BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(zlib)
 %if !%{with crosscompile}
 BuildRequires:  perl-devel
-BuildRequires:  pkgconfig(python)
+BuildRequires:  pkgconfig(python2)
 %endif
 %if %{with ruby}
 BuildRequires:	pkgconfig(ruby)
@@ -178,7 +178,9 @@ rm -f %{buildroot}%{ruby_sitearchdir}/*.*a
 %endif
 rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 
+%if %{mdvver} <= 3000000
 %multiarch_binaries %{buildroot}%{_bindir}/libprelude-config
+%endif
 
 %files -n %{libname}
 %{_libdir}/libprelude.so.%{major}*
@@ -189,7 +191,9 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %files -n %{devname}
 %doc AUTHORS ChangeLog README INSTALL
 #doc #{_docdir}/%{devname}
+%if %{mdvver} <= 3000000
 %{multiarch_bindir}/libprelude-config
+%endif
 %{_bindir}/libprelude-config
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
@@ -199,7 +203,6 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %{_datadir}/libprelude
 
 %files -n prelude-tools
-%doc AUTHORS ChangeLog README INSTALL
 %{_bindir}/prelude-adduser
 %{_bindir}/prelude-admin
 %{_mandir}/man1/prelude-admin.1*
@@ -222,4 +225,3 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %files -n ruby-prelude
 %{ruby_sitearchdir}/*
 %endif
-
