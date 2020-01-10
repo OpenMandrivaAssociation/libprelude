@@ -123,7 +123,7 @@ Provides ruby bindings for prelude.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 rm -f bindings/python/_PreludeEasy.cxx
 sed -i -e "s|/lib/|/%{_lib}/|g" configure.in
