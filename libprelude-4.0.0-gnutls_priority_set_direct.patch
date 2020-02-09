@@ -1,0 +1,58 @@
+--- ./prelude-admin/server.c	2016-09-15 08:49:10.785000884 +0200
++++ ./prelude-admin/server.c	2017-02-05 10:29:25.051965998 +0100
+@@ -152,9 +152,9 @@
+ #endif
+ 
+ #ifdef GNUTLS_SRP_ENABLED
+-        const char *pstring = "NORMAL:+SRP:+SRP-DSS:+SRP-RSA:" TLS_DH_STR;
++        const char *pstring = "@SYSTEM:+SRP:+SRP-DSS:+SRP-RSA:" TLS_DH_STR;
+ #else
+-        const char *pstring = "NORMAL:" TLS_DH_STR;
++        const char *pstring = "@SYSTEM:" TLS_DH_STR;
+ #endif
+ 
+         gnutls_init(&session, GNUTLS_SERVER);
+--- ./prelude-admin/prelude-admin.c	2016-09-15 08:49:10.785000884 +0200
++++ ./prelude-admin/prelude-admin.c	2017-02-05 10:30:02.507127046 +0100
+@@ -897,9 +897,9 @@
+ #endif
+ 
+ #ifdef GNUTLS_SRP_ENABLED
+-        const char *pstring = "NORMAL:+SRP:+SRP-DSS:+SRP-RSA:" TLS_DH_STR;
++        const char *pstring = "@SYSTEM:+SRP:+SRP-DSS:+SRP-RSA:" TLS_DH_STR;
+ #else
+-        const char *pstring = "NORMAL:" TLS_DH_STR;
++        const char *pstring = "@SYSTEM:" TLS_DH_STR;
+ #endif
+ 
+         gnutls_init(&session, GNUTLS_CLIENT);
+--- ./client.conf.in	2016-09-15 08:49:10.732000884 +0200
++++ ./client.conf.in	2017-02-05 10:32:07.132334930 +0100
+@@ -58,7 +58,7 @@
+ # Sets priorities for the ciphers, key exchange methods, macs and
+ # compression methods.
+ #
+-# "NORMAL" option enables all "secure" ciphersuites. The 256-bit
++# "@SYSTEM" option enables all "secure" ciphersuites. The 256-bit
+ # ciphers are included as a fallback only. The ciphers are sorted by
+ # security margin.
+ #
+@@ -77,5 +77,5 @@
+ # Note that much more settings might be enabled or disabled using this
+ # option: please see gnutls_priority_init(3) for more details.
+ #
+-# The default settings is "NORMAL".
+-# tls-options = NORMAL
++# The default settings is "@SYSTEM".
++# tls-options = @SYSTEM
+--- ./src/tls-auth.c	2016-09-15 08:49:10.809000884 +0200
++++ ./src/tls-auth.c	2017-02-05 10:31:14.194521137 +0100
+@@ -232,7 +232,7 @@
+                 int ret;
+                 const char *errptr;
+ 
+-                ret = gnutls_priority_init(&tls_priority, (tlsopts) ? tlsopts : "NORMAL", &errptr);
++                ret = gnutls_priority_init(&tls_priority, (tlsopts) ? tlsopts : "@SYSTEM", &errptr);
+                 if ( ret < 0 )
+                         return prelude_error_verbose_make(PRELUDE_ERROR_SOURCE_CLIENT, PRELUDE_ERROR_TLS,
+                                                           "TLS options '%s': %s", errptr, gnutls_strerror(ret));

@@ -1,0 +1,11 @@
+--- ./configure	2016-09-15 08:51:15.490000884 +0200
++++ ./configure.new	2016-10-31 20:01:06.731235733 +0100
+@@ -21874,7 +21874,7 @@
+ if ${am_cv_ruby_rbexecdir+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+-  am_cv_ruby_rbexecdir=`$RUBY -rrbconfig -e "drive = File::PATH_SEPARATOR == ';' ? /\A\w:/ : /\A/; prefix = Regexp.new('\\A' + Regexp.quote(RbConfig::CONFIG['prefix'])); \\$prefix = RbConfig::CONFIG['prefix'].sub(drive, ''); \\$sitearchdir = RbConfig::CONFIG['sitearchdir'].sub(prefix, '\\$(prefix)').sub(drive, ''); print \\$sitearchdir;" 2>/dev/null || echo "${RUBY_EXEC_PREFIX}/local/lib/site_ruby/${RUBY_VERSION}/${RUBY_PLATFORM}"`
++  am_cv_ruby_rbexecdir=`$RUBY -rrbconfig -e "drive = File::PATH_SEPARATOR == ';' ? /\A\w:/ : /\A/; prefix = Regexp.new('\\A' + Regexp.quote(RbConfig::CONFIG['prefix'])); \\$prefix = RbConfig::CONFIG['prefix'].sub(drive, ''); \\$sitearchdir = RbConfig::CONFIG['vendorarchdir'].sub(prefix, '\\$(prefix)').sub(drive, ''); print \\$sitearchdir;" 2>/dev/null || echo "${RUBY_EXEC_PREFIX}/local/lib/site_ruby/${RUBY_VERSION}/${RUBY_PLATFORM}"`
+ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_ruby_rbexecdir" >&5
+ $as_echo "$am_cv_ruby_rbexecdir" >&6; }

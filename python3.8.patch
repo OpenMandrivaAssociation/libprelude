@@ -1,0 +1,22 @@
+diff --git a/bindings/python/setup.py.in b/bindings/python/setup.py.in
+index 3b7a880..7200b97 100644
+--- a/bindings/python/setup.py.in
++++ b/bindings/python/setup.py.in
+@@ -103,6 +103,11 @@ commands = {
+ if len(sys.argv) > 1 and sys.argv[1] in commands:
+     commands[sys.argv[1]]()
+ 
++if sys.version_info >= (3,8):
++    libraries = ["python%s.%s" % (sys.version_info.major,sys.version_info.minor)]
++else:
++    libraries = []
++
+ setup(name="prelude",
+       version="@VERSION@",
+       description="Python bindings for the Prelude Library",
+@@ -115,4 +120,5 @@ setup(name="prelude",
+                              ["_prelude.cxx"],
+                              extra_compile_args=split_args("-I@top_builddir@ -I@top_srcdir@/src/include -I@top_builddir@/src/include -I@top_builddir@/src/libprelude-error -I@top_srcdir@/bindings/c++/include"),
+                              library_dirs=[ "@top_builddir@/src/.libs/", "@top_builddir@/bindings/c++/.libs/" ],
++                             libraries=libraries,
+                              extra_link_args=split_args("-lpreludecpp -lprelude @LIBPRELUDE_LIBS@ @LIBADD_DL@ @LTLIBTHREAD@"))])

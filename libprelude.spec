@@ -1,48 +1,71 @@
-%bcond_with crosscompile
+%define major                   28
+%define libname                 %mklibname prelude %{major}
+%define cppmajor                12
+%define libcpp                  %mklibname preludecpp %{cppmajor}
+%define libnamedevel            %mklibname prelude -d
 
-%if !%{with crosscompile}
-%bcond_without perl
+%bcond_with ruby
 %bcond_without python
-%endif
-%bcond_without ruby
+%bcond_with perl
+%bcond_with lua
+%bcond_with swig
 
-%define _disable_lto 1
-%define _localstatedir %{_var}
-%define __noautoreq '/usr/bin/python'
-
-%define major	23
-%define cppmaj	8
-%define libname	%mklibname prelude %{major}
-%define libcpp	%mklibname preludecpp  %{cppmaj}
-%define devname	%mklibname prelude -d
-
-Summary:        Prelude Hybrid Intrusion Detection System Library
 Name:           libprelude
-Version:        1.2.6
-Release:        4
+Version:        5.1.1
+Release:        %mkrel 1
+Summary:        Prelude SIEM Library
 License:        GPLv2+
 Group:          System/Libraries
-Url:            http://www.prelude-ids.org/
-Source0:	http://www.prelude-ids.org/download/releases/libprelude/%{name}-%{version}.tar.gz
-Patch1:		libprelude-0.9.21.3-ltdl.patch
+URL:            https://www.prelude-siem.org/
+Source0:        https://www.prelude-siem.org/pkg/src/5.1.0/%{name}-%{version}.tar.gz
+# https://www.prelude-siem.org/issues/859
+Patch0:         libprelude-4.0.0-linking.patch
+# https://www.prelude-siem.org/issues/860
+Patch1:         libprelude-4.0.0-ruby_vendorarchdir.patch
+# https://www.prelude-siem.org/issues/862
+Patch2:         libprelude-4.0.0-gnutls_priority_set_direct.patch
+# https://www.prelude-siem.org/issues/863
+Patch3:         libprelude-4.0.0-fsf_address.patch
+# https://www.prelude-siem.org/issues/865
+Patch4:         libprelude-4.0.0-fix_timegm.patch
+# https://www.prelude-siem.org/issues/887
+Patch5:         libprelude-4.0.0-fix_prelude_tests_timer.patch
+Patch8:         libprelude-5.0.0-fix_awk_error.patch
+Patch10:        libprelude-5.0.0-fix_py38.patch
+Patch11:        python3.8.patch
 
-BuildRequires:  gtk-doc
-BuildRequires:	swig
-BuildRequires:	libtool-devel
+BuildRequires:  bison
+BuildRequires:  chrpath
+BuildRequires:  flex
+BuildRequires:  pkgconfig(libgcrypt)
+BuildRequires:  pkgconfig(gpg-error)
+BuildRequires:  libltdl-devel
 BuildRequires:  pkgconfig(gnutls)
-BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(zlib)
-%if !%{with crosscompile}
-BuildRequires:  perl-devel
-BuildRequires:  pkgconfig(python2)
+
+%if %{with swig}
+BuildRequires:  swig
 %endif
+
+%if %{with perl}
+BuildRequires:  perl-devel
+%endif
+
+%if %{with python}
+BuildRequires:  pkgconfig(python3)
+%endif
+
+%if %{with lua}
+BuildRequires:  pkgconfig(lua) >= 5.2
+%endif
+
 %if %{with ruby}
-BuildRequires:	pkgconfig(ruby)
+BuildRequires:  pkgconfig(ruby)
 %endif
 
 %description
 The Prelude Library is a collection of generic functions providing
-communication between the Prelude Hybrid IDS suite components. It
+communication between the Prelude SIEM suite components. It
 provides a convenient interface for sending alerts to Prelude
 Manager with transparent SSL, failover and replication support,
 asynchronous events and timer interfaces, an abstracted
@@ -52,13 +75,13 @@ generic plugin API. It allows you to easily turn your favorite
 security program into a Prelude sensor.
 
 %package -n %{libname}
-Summary:        Prelude Hybrid Intrusion Detection System Library
+Summary:        Prelude SIEM Library
 Group:          System/Libraries
 Provides:       %{name} = %{version}-%{release}
 
 %description -n %{libname}
 The Prelude Library is a collection of generic functions providing
-communication between the Prelude Hybrid IDS suite components. It
+communication between the Prelude SIEM suite components. It
 provides a convenient interface for sending alerts to Prelude
 Manager with transparent SSL, failover and replication support,
 asynchronous events and timer interfaces, an abstracted
@@ -67,142 +90,77 @@ line, or wide configuration, available from the Manager), and a
 generic plugin API. It allows you to easily turn your favorite
 security program into a Prelude sensor.
 
+%files -n %{libname}
+%doc AUTHORS ChangeLog README NEWS
+%license COPYING LICENSE.README HACKING.README
+%{_libdir}/libprelude.so.%{major}
+%{_libdir}/libprelude.so.%{major}.*
+
 %package -n %{libcpp}
-Summary:        Prelude Hybrid Intrusion Detection System Library
+Summary:        Prelude SIEM Library
 Group:          System/Libraries
-Conflicts:	%{_lib}prelude2 < 1.0.1-4
 
 %description -n %{libcpp}
-This package contains the C++ shared library for %{name}.
+The Prelude Library is a collection of generic functions providing
+communication between the Prelude SIEM suite components. It
+provides a convenient interface for sending alerts to Prelude
+Manager with transparent SSL, failover and replication support,
+asynchronous events and timer interfaces, an abstracted
+configuration API (hooking at the commandline, the configuration
+line, or wide configuration, available from the Manager), and a
+generic plugin API. It allows you to easily turn your favorite
+security program into a Prelude sensor.
 
-%package -n %{devname}
+%files -n %{libcpp}
+%{_libdir}/libpreludecpp.so.%{cppmajor}
+%{_libdir}/libpreludecpp.so.%{cppmajor}.*
+
+%package -n %{libnamedevel}
 Summary:        Libraries, includes, etc. for developing Prelude IDS sensors
 Group:          Development/C
 Requires:       %{libname} = %{version}-%{release}
 Requires:       %{libcpp} = %{version}-%{release}
+Requires:       libltdl-devel
+Provides:       %{name}-devel = %{version}-%{release}
 Provides:       prelude-devel = %{version}-%{release}
 
-%description -n %{devname}
-This package includes the development files for %{name}.
+%description -n %{libnamedevel}
+Libraries, include files, etc you can use to develop Prelude IDS
+sensors using the Prelude Library. The Prelude Library is a
+collection of generic functions providing communication between
+the Prelude SIEM suite componentst It provides a convenient
+interface for sending alerts to Prelude Manager with transparent
+SSL, failover and replication support, asynchronous events and
+timer interfaces, an abstracted configuration API (hooking at the
+commandline, the configuration line, or wide configuration,
+available from the Manager), and a generic plugin API. It allows
+you to easily turn your favorite security program into a Prelude
+sensor.
+
+%files -n %{libnamedevel}
+%doc %{_datadir}/gtk-doc/html/libprelude/
+%if %{with swig}
+%{_datadir}/%{name}/swig
+%endif
+%{_bindir}/%{name}-config
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/*.pc
+%{_includedir}/%{name}/
+%{_datadir}/aclocal/*.m4
+%{_mandir}/man1/%{name}-config.1*
+%{_datadir}/libprelude/swig/*
 
 %package -n prelude-tools
 Summary:        The interface for %{libname}
 Group:          Networking/Other
+Requires:       %{libname} = %{version}-%{release}
 
 %description -n prelude-tools
 Provides a convenient interface for sending alerts to Prelude
 Manager.
 
-%if !%{with crosscompile}
-%package -n python-prelude
-Summary:        Python bindings for prelude
-Group:          Development/Python
-Requires:       %{libname} = %{version}-%{release}
-
-%description -n python-prelude
-Provides python bindings for prelude.
-
-%package -n perl-prelude
-Summary:        Perl bindings for prelude
-Group:          Development/Perl
-Requires:       %{libname} = %{version}-%{release}
-
-%description -n perl-prelude
-Provides perl bindings for prelude.
-%endif
-
-%if %{with ruby}
-%package -n ruby-prelude
-Summary:	Ruby bindings for prelude
-Group:		Development/Ruby
-Requires:	%{libname} = %{version}-%{release}
-
-%description -n ruby-prelude
-Provides ruby bindings for prelude.
-%endif
-
-%prep
-%setup -q
-%autopatch -p1
-
-rm -f bindings/python/_PreludeEasy.cxx
-sed -i -e "s|/lib/|/%{_lib}/|g" configure.in
-autoreconf -fi
-
-%build
-export CXX=g++
-export PYTHON=%__python2
-
-%configure \
-	--without-included-ltdl \
-	--disable-static \
-	--enable-shared \
-	--with-perl-installdirs=vendor \
-	--without-lua \
-%if %{with python}
-	--with-python \
-%else
-	--without-python \
-%endif
-%if %{with perl}
-	--with-perl \
-%else
-	--without-perl \
-%endif
-%if %{with ruby}
-	--with-ruby \
-%endif
-	--without-included-regex \
-	--includedir=%{_includedir}/%{name} \
-	--enable-gtk-doc \
-	--with-html-dir=%{_docdir}/%{devname}
-
-# removing rpath
-sed -i.rpath -e 's|LD_RUN_PATH=""||' bindings/Makefile.in
-sed -i.rpath -e 's|^sys_lib_dlsearch_path_spec="/lib /usr/lib|sys_lib_dlsearch_path_spec="/%{_lib} %{_libdir}|' libtool
-
-%make CXX=%{__cxx}
-
-(
-cd bindings/perl
-perl Makefile.PL INSTALLDIRS=vendor
-make
-)
-
-%install
-%makeinstall_std
-%makeinstall_std -C bindings/perl
-
-%if %{with ruby}
-rm -f %{buildroot}%{ruby_sitearchdir}/*.*a
-%endif
-rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
-
-%if %{mdvver} <= 3000000
-%multiarch_binaries %{buildroot}%{_bindir}/libprelude-config
-%endif
-
-%files -n %{libname}
-%{_libdir}/libprelude.so.%{major}*
-
-%files -n %{libcpp}
-%{_libdir}/libpreludecpp.so.%{cppmaj}*
-
-%files -n %{devname}
-%doc AUTHORS ChangeLog README INSTALL
-#doc #{_docdir}/%{devname}
-%if %{mdvver} <= 3000000
-%{multiarch_bindir}/libprelude-config
-%endif
-%{_bindir}/libprelude-config
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
-%dir %{_includedir}/libprelude
-%{_includedir}/libprelude/*
-%{_datadir}/aclocal/*.m4
-%{_datadir}/libprelude
-
 %files -n prelude-tools
+%doc AUTHORS ChangeLog README INSTALL
 %{_bindir}/prelude-adduser
 %{_bindir}/prelude-admin
 %{_mandir}/man1/prelude-admin.1*
@@ -212,16 +170,85 @@ rm -f %{buildroot}%{_sysconfdir}/prelude/default/*.conf-dist
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/prelude/default/*.conf
 %dir %{_var}/spool/prelude
 
-%if !%{with crosscompile}
-%files -n python-prelude
-%{_libdir}/python*/site-packages/*
+
+%if %{with python}
+%package -n python3-prelude
+Summary:        Python 3 bindings for prelude
+Group:          Development/Python
+Requires:       %{libname} = %{version}-%{release}
+%{?python_provide:%python_provide python3-prelude}
+
+%description -n python3-prelude
+Provides python 3 bindings for prelude.
+
+%files -n python3-prelude
+%{python3_sitearch}/*
+%endif
+
+%if %{with perl}
+%package -n perl-prelude
+Summary:        Perl bindings for prelude
+Group:          Development/Perl
+Requires:       %{libname} = %{version}-%{release}
+
+%description -n perl-prelude
+Provides perl bindings for prelude.
 
 %files -n perl-prelude
-%{perl_vendorarch}/Prelude.pm
+%{perl_vendorarch}/Prelude*.pm
 %{perl_vendorarch}/auto/Prelude
 %endif
 
 %if %{with ruby}
+%package -n ruby-prelude
+Summary:        Ruby bindings for prelude
+Group:          Development/Ruby
+Requires:       %{libname} = %{version}-%{release}
+
+%description -n ruby-prelude
+Provides ruby bindings for prelude.
+
 %files -n ruby-prelude
 %{ruby_sitearchdir}/*
 %endif
+
+%if %{with lua}
+%package -n lua-prelude
+Summary:        Lua bindings for prelude
+Group:          Development/Other
+Requires:       %{libname} = %{version}-%{release}
+Requires:       lua
+
+%description -n lua-prelude
+Provides Lua bindings for prelude generated by SWIG.
+%endif
+
+%prep
+%autosetup -p1
+
+%build
+export CFLAGS="%{optflags} -pthread"
+export CXXFLAGS="$CFLAGS"
+%configure \
+    --without-included-ltdl \
+    --disable-static \
+    --enable-shared \
+%if %{with swig}
+    --with-swig \
+%endif
+    --without-python2 \
+%if %{with python}
+    --with-python3 \
+%endif
+    --with-perl-installdirs=vendor \
+    --without-included-regex \
+    --includedir=%{_includedir}/%{name}
+%make_build
+
+%install
+%make_install
+
+%{_bindir}/chrpath -d %{buildroot}%{_libdir}/*.so.*
+
+find %{buildroot} -name '*.la' -delete
+
