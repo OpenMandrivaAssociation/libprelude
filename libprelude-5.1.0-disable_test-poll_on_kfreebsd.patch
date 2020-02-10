@@ -1,0 +1,17 @@
+Description: Disable test-poll test in libmissing on kfreebsd
+Author: Thomas Andrejak <thomas.andrejak@gmail.com>
+Last-Update: 2017-06-22
+
+--- libprelude-3.1.0/libmissing/tests/test-poll.c	2016-09-15 02:49:10.775000884 -0400
++++ libprelude-3.1.0/libmissing/tests/test-poll.c	2017-06-25 12:18:46.997120157 -0400
+@@ -370,6 +370,10 @@
+ {
+   int result;
+ 
++#if defined(__FreeBSD_kernel__) && defined(__GLIBC__)
++  exit(77);
++#endif
++
+ #ifdef INTERACTIVE
+   printf ("Please press Enter\n");
+   test (test_tty, "TTY");
