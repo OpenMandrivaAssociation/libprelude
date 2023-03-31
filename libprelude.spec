@@ -12,7 +12,7 @@
 
 Name:           libprelude
 Version:        5.1.1
-Release:        %mkrel 1
+Release:        2
 Summary:        Prelude SIEM Library
 License:        GPLv2+
 Group:          System/Libraries
