@@ -42,6 +42,11 @@ Patch12:        libprelude-5.1.0-fix-test_rwlock1.patch
 # For now, add a minimum patch to support ruby2.7
 Patch13:        libprelude-5.1.1-ruby27.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  bison
 BuildRequires:  chrpath
 BuildRequires:  flex
